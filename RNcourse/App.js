@@ -1,5 +1,12 @@
 import { useState } from 'react';
-import { Button, StyleSheet, Text, TextInput, View } from 'react-native';
+import {
+  Button,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
+} from 'react-native';
 
 export default function App() {
   const [enteredGoalText, setEnteredGoalText] = useState('');
@@ -24,12 +31,16 @@ export default function App() {
         <Button title="Add Goal" onPress={addGoalHandler} />
       </View>
       <View style={styles.goalsContainer}>
-        {courseGoals.map((goal) => (
-          // boarderRadius는 안드로이드에서만 가능하다. ios 사용하려면 View를 하나 더 감싸야한다.
-          <View style={styles.goalItem} key={goal}>
-            <Text style={styles.goalText}>{goal}</Text>
-          </View>
-        ))}
+        {/* ScrollView를 추가하기 위해서 부모에 View를 추가한뒤 스타일링 한다. */}
+        <ScrollView alwaysBounceVertical={false}>
+          {/* ios에서 스크롤이 안되게 하려면 false */}
+          {courseGoals.map((goal) => (
+            // boarderRadius는 안드로이드에서만 가능하다. ios 사용하려면 View를 하나 더 감싸야한다.
+            <View style={styles.goalItem} key={goal}>
+              <Text style={styles.goalText}>{goal}</Text>
+            </View>
+          ))}
+        </ScrollView>
       </View>
     </View>
   );
