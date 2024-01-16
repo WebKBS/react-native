@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import {
   Button,
-  ScrollView,
+  FlatList,
   StyleSheet,
   Text,
   TextInput,
@@ -17,7 +17,10 @@ export default function App() {
   }
 
   function addGoalHandler() {
-    setCourseGoals((currentGoals) => [...currentGoals, enteredGoalText]);
+    setCourseGoals((currentGoals) => [
+      ...currentGoals,
+      { text: enteredGoalText, id: Math.random().toString() },
+    ]);
   }
 
   return (
@@ -31,16 +34,22 @@ export default function App() {
         <Button title="Add Goal" onPress={addGoalHandler} />
       </View>
       <View style={styles.goalsContainer}>
-        {/* ScrollView를 추가하기 위해서 부모에 View를 추가한뒤 스타일링 한다. */}
-        <ScrollView alwaysBounceVertical={false}>
-          {/* ios에서 스크롤이 안되게 하려면 false */}
-          {courseGoals.map((goal) => (
-            // boarderRadius는 안드로이드에서만 가능하다. ios 사용하려면 View를 하나 더 감싸야한다.
-            <View style={styles.goalItem} key={goal}>
-              <Text style={styles.goalText}>{goal}</Text>
-            </View>
-          ))}
-        </ScrollView>
+        {/* FlatList는 스크롤시 데이터가 화면에 나타날때만 나타나는 데이터를 렌더링을 한다. Scrollview 대신 적합*/}
+        <FlatList
+          data={courseGoals}
+          renderItem={(itemData) => {
+            return (
+              <View style={styles.goalItem}>
+                <Text style={styles.goalText}>{itemData.item.text}</Text>
+              </View>
+            );
+          }}
+          keyExtractor={(item, index) => {
+            // keyExtractor는 key를 지정해주는 함수이다. key는 고유한 값이어야한다.
+            return item.id;
+          }}
+          alwaysBounceVertical={false}
+        ></FlatList>
         {/* ScrollView는 전체 Ui가 렌더링 될때마다 안에있는 항목 전체가 렌더링 된다. 고로 성능상 문제가 있을수 있다. */}
       </View>
     </View>
