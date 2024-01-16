@@ -1,27 +1,59 @@
-import { Button, StyleSheet, Text, View } from 'react-native';
+import { useEffect, useState } from 'react';
+import {
+  Button,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
+} from 'react-native';
 
 export default function App() {
+  const [enteredGoal, setEnteredGoal] = useState([]);
+  useEffect(() => {
+    fetch('https://jsonplaceholder.typicode.com/todos').then((response) => {
+      response.json().then((data) => {
+        setEnteredGoal(data);
+      });
+    });
+  }, []);
+
   return (
-    <View style={styles.container}>
-      <View>
-        <Text>Open up App.js to start working on your app!</Text>
+    <View style={styles.appContainer}>
+      <View style={styles.inputContainer}>
+        <TextInput
+          style={styles.textInput}
+          placeholder="Course Goal"
+          keyboardType="number-pad"
+        />
+        <Button title="Add Goal" />
       </View>
-      <Text
-        // 스타일 설정시 px은 사용할 수 없다.
-        style={{ color: 'red', marginTop: 30, borderWidth: 1, padding: 20 }}
-      >
-        Hello World!
-      </Text>
-      <Button title="Click Me" onPress={() => console.log('a')} />
+      <View>
+        <Text>List of goals...</Text>
+        <ScrollView>
+          {enteredGoal.map((item) => (
+            <Text key={item.id}>{item.title}</Text>
+          ))}
+        </ScrollView>
+      </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+  appContainer: {
+    padding: 50,
+  },
+  inputContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  textInput: {
+    borderWidth: 1,
+    borderColor: '#ccc',
+    width: '80%',
+    marginRight: 8,
+    paddingLeft: 20,
+    paddingRight: 20,
   },
 });
