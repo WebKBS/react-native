@@ -1,22 +1,17 @@
-import { useEffect, useState } from 'react';
-import {
-  Button,
-  ScrollView,
-  StyleSheet,
-  Text,
-  TextInput,
-  View,
-} from 'react-native';
+import { useState } from 'react';
+import { Button, StyleSheet, Text, TextInput, View } from 'react-native';
 
 export default function App() {
-  const [enteredGoal, setEnteredGoal] = useState([]);
-  useEffect(() => {
-    fetch('https://jsonplaceholder.typicode.com/todos').then((response) => {
-      response.json().then((data) => {
-        setEnteredGoal(data);
-      });
-    });
-  }, []);
+  const [enteredGoalText, setEnteredGoalText] = useState('');
+  const [courseGoals, setCourseGoals] = useState([]);
+
+  function goalInputHandler(enteredText) {
+    setEnteredGoalText(enteredText);
+  }
+
+  function addGoalHandler() {
+    setCourseGoals((currentGoals) => [...currentGoals, enteredGoalText]);
+  }
 
   return (
     <View style={styles.appContainer}>
@@ -24,17 +19,14 @@ export default function App() {
         <TextInput
           style={styles.textInput}
           placeholder="Course Goal"
-          keyboardType="number-pad"
+          onChangeText={goalInputHandler}
         />
-        <Button title="Add Goal" />
+        <Button title="Add Goal" onPress={addGoalHandler} />
       </View>
-      <View>
-        <Text>List of goals...</Text>
-        <ScrollView>
-          {enteredGoal.map((item) => (
-            <Text key={item.id}>{item.title}</Text>
-          ))}
-        </ScrollView>
+      <View style={styles.goalsContainer}>
+        {courseGoals.map((goal) => (
+          <Text key={goal}>{goal}</Text>
+        ))}
       </View>
     </View>
   );
@@ -42,18 +34,27 @@ export default function App() {
 
 const styles = StyleSheet.create({
   appContainer: {
-    padding: 50,
+    flex: 1,
+    paddingTop: 50,
+    paddingHorizontal: 16,
   },
   inputContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottomBottom: 24,
+    borderBottomWidth: 1,
+    borderBottomColor: '#ccc',
+    flex: 1,
   },
   textInput: {
     borderWidth: 1,
     borderColor: '#ccc',
-    width: '80%',
+    width: '70%',
     marginRight: 8,
-    paddingLeft: 20,
-    paddingRight: 20,
+    padding: 8,
+  },
+  goalsContainer: {
+    flex: 4,
   },
 });
