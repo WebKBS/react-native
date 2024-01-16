@@ -25,7 +25,10 @@ export default function App() {
       </View>
       <View style={styles.goalsContainer}>
         {courseGoals.map((goal) => (
-          <Text key={goal}>{goal}</Text>
+          // boarderRadius는 안드로이드에서만 가능하다. ios 사용하려면 View를 하나 더 감싸야한다.
+          <View style={styles.goalItem} key={goal}>
+            <Text style={styles.goalText}>{goal}</Text>
+          </View>
         ))}
       </View>
     </View>
@@ -42,7 +45,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginBottomBottom: 24,
+    marginBottom: 24,
     borderBottomWidth: 1,
     borderBottomColor: '#ccc',
     flex: 1,
@@ -55,6 +58,18 @@ const styles = StyleSheet.create({
     padding: 8,
   },
   goalsContainer: {
-    flex: 4,
+    flex: 5,
+  },
+  goalItem: {
+    margin: 8,
+    padding: 8,
+    borderRadius: 6, // 안드로이드만 가능하다.
+    backgroundColor: '#5e0acc',
+    shadowColor: 'red',
+    shadowOpacity: 1,
+    shadowOffset: { width: 1, height: 1 },
+  },
+  goalText: {
+    color: 'white',
   },
 });
