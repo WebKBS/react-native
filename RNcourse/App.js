@@ -35,6 +35,7 @@ export default function App() {
       </View>
       <View style={styles.goalsContainer}>
         {/* FlatList는 스크롤시 데이터가 화면에 나타날때만 나타나는 데이터를 렌더링을 한다. Scrollview 대신 적합*/}
+        {/* https://reactnative.dev/docs/scrollview 참조! */}
         <FlatList
           data={courseGoals}
           renderItem={(itemData) => {
