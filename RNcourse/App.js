@@ -41,6 +41,7 @@ export default function App() {
             </View>
           ))}
         </ScrollView>
+        {/* ScrollView는 전체 Ui가 렌더링 될때마다 안에있는 항목 전체가 렌더링 된다. 고로 성능상 문제가 있을수 있다. */}
       </View>
     </View>
   );
