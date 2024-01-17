@@ -2,12 +2,16 @@ import { Pressable, StyleSheet, Text, View } from 'react-native';
 
 export default function GoalItem(props) {
   return (
-    <Pressable onPress={props.onDeleteItem.bind(this, props.id)}>
-      {/* bind를 통해 함수를 미리 바인딩 해놓는다. */}
-      <View style={styles.goalItem}>
+    <View style={styles.goalItem}>
+      <Pressable
+        android_ripple={{ color: '#ddd' }} // 안드로이드 터치시 물결 효과
+        onPress={props.onDeleteItem.bind(this, props.id)}
+        style={({ pressed }) => (pressed ? styles.pressedItem : null)} // ios에서 터치시 효과
+      >
+        {/* bind를 통해 함수를 미리 바인딩 해놓는다. */}
         <Text style={styles.goalText}>{props.text}</Text>
-      </View>
-    </Pressable>
+      </Pressable>
+    </View>
   );
 }
 
@@ -21,7 +25,11 @@ const styles = StyleSheet.create({
     shadowOpacity: 1,
     shadowOffset: { width: 1, height: 1 },
   },
+  pressedItem: {
+    opacity: 0.5,
+  },
   goalText: {
     color: 'white',
+    padding: 8,
   },
 });
