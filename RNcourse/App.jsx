@@ -1,12 +1,6 @@
 import { useState } from 'react';
-import {
-  Button,
-  FlatList,
-  StyleSheet,
-  Text,
-  TextInput,
-  View,
-} from 'react-native';
+import { Button, FlatList, StyleSheet, TextInput, View } from 'react-native';
+import GoalItem from './components/GoalItem';
 
 export default function App() {
   const [enteredGoalText, setEnteredGoalText] = useState('');
@@ -39,11 +33,7 @@ export default function App() {
         <FlatList
           data={courseGoals}
           renderItem={(itemData) => {
-            return (
-              <View style={styles.goalItem}>
-                <Text style={styles.goalText}>{itemData.item.text}</Text>
-              </View>
-            );
+            return <GoalItem text={itemData.item.text} />;
           }}
           keyExtractor={(item, index) => {
             // keyExtractor는 key를 지정해주는 함수이다. key는 고유한 값이어야한다.
@@ -81,17 +71,5 @@ const styles = StyleSheet.create({
   },
   goalsContainer: {
     flex: 5,
-  },
-  goalItem: {
-    margin: 8,
-    padding: 8,
-    borderRadius: 6, // 안드로이드만 가능하다.
-    backgroundColor: '#5e0acc',
-    shadowColor: 'red',
-    shadowOpacity: 1,
-    shadowOffset: { width: 1, height: 1 },
-  },
-  goalText: {
-    color: 'white',
   },
 });
