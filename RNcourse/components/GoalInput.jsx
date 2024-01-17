@@ -9,6 +9,11 @@ export default function GoalInput(props) {
   }
 
   function addGoalHandler() {
+    if (enteredGoalText.length === 0) {
+      alert('내용을 입력해주세요.');
+      return;
+    }
+    console.log(enteredGoalText);
     props.onAddGoal(enteredGoalText); // App.jsx에서 props로 전달받은 onAddGoal 함수를 호출한다. 함수 끌어올리기
     setEnteredGoalText('');
   }
