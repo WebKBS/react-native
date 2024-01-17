@@ -1,16 +1,12 @@
 import { useState } from 'react';
-import { Button, FlatList, StyleSheet, TextInput, View } from 'react-native';
+import { FlatList, StyleSheet, View } from 'react-native';
+import GoalInput from './components/GoalInput';
 import GoalItem from './components/GoalItem';
 
 export default function App() {
-  const [enteredGoalText, setEnteredGoalText] = useState('');
   const [courseGoals, setCourseGoals] = useState([]);
 
-  function goalInputHandler(enteredText) {
-    setEnteredGoalText(enteredText);
-  }
-
-  function addGoalHandler() {
+  function addGoalHandler(enteredGoalText) {
     setCourseGoals((currentGoals) => [
       ...currentGoals,
       { text: enteredGoalText, id: Math.random().toString() },
@@ -19,14 +15,8 @@ export default function App() {
 
   return (
     <View style={styles.appContainer}>
-      <View style={styles.inputContainer}>
-        <TextInput
-          style={styles.textInput}
-          placeholder="Course Goal"
-          onChangeText={goalInputHandler}
-        />
-        <Button title="Add Goal" onPress={addGoalHandler} />
-      </View>
+      <GoalInput onAddGoal={addGoalHandler} />
+
       <View style={styles.goalsContainer}>
         {/* FlatList는 스크롤시 데이터가 화면에 나타날때만 나타나는 데이터를 렌더링을 한다. Scrollview 대신 적합*/}
         {/* https://reactnative.dev/docs/scrollview 참조! */}
@@ -53,22 +43,7 @@ const styles = StyleSheet.create({
     paddingTop: 50,
     paddingHorizontal: 16,
   },
-  inputContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginBottom: 24,
-    borderBottomWidth: 1,
-    borderBottomColor: '#ccc',
-    flex: 1,
-  },
-  textInput: {
-    borderWidth: 1,
-    borderColor: '#ccc',
-    width: '70%',
-    marginRight: 8,
-    padding: 8,
-  },
+
   goalsContainer: {
     flex: 5,
   },
