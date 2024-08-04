@@ -1,4 +1,4 @@
-import {TextInput, View} from "react-native";
+import {Alert, TextInput, View} from "react-native";
 import PrimaryButton from "@/components/PrimaryButton";
 import {StyleSheet} from "react-native";
 import {useState} from "react";
@@ -10,8 +10,21 @@ const StartGameScreen = () => {
     setEnteredNumber(inputText);
   }
 
+  const resetInputHandler = () => {
+    setEnteredNumber("");
+  }
+
   const confirmInputHandler = () => {
-    console.log(enteredNumber);
+    const chosenNumber = parseInt(enteredNumber);
+
+    if (isNaN(chosenNumber) || chosenNumber <= 0 || chosenNumber > 99) {
+      Alert.alert("숫자가 잘못되었습니다.", "1부터 99 사이의 숫자를 입력해주세요.", [{
+        text: "확인",
+        style: "destructive",
+        onPress: resetInputHandler
+      }]);
+      return;
+    }
   }
 
   return (
@@ -27,7 +40,9 @@ const StartGameScreen = () => {
       />
       <View style={styles.buttonsContainer}>
         <View style={styles.buttonContainer}>
-          <PrimaryButton>Reset</PrimaryButton>
+          <PrimaryButton onPress={
+            resetInputHandler
+          }>Reset</PrimaryButton>
         </View>
         <View style={styles.buttonContainer}>
           <PrimaryButton onPress={confirmInputHandler}>Confirm</PrimaryButton>
