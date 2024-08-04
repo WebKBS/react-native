@@ -1,10 +1,7 @@
 import React from 'react';
 import {Pressable, Text, View, StyleSheet} from "react-native";
 
-const PrimaryButton = ({children}: { children: string }) => {
-  const pressHandler = () => {
-    console.log("Button pressed");
-  }
+const PrimaryButton = ({children, onPress}: { children: string, onPress?: () => void }) => {
 
   return (
     <View style={styles.buttonOuterContainer}>
@@ -15,7 +12,7 @@ const PrimaryButton = ({children}: { children: string }) => {
           return styles.buttonInnerContainer
         }
       }
-      } onPress={pressHandler}
+      } onPress={onPress}
                  android_ripple={{color: "#640233"}} // android_ripple는 안드로이드에서만 적용됨
       >
         <Text style={styles.buttonText}>{children}</Text>
