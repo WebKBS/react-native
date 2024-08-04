@@ -1,5 +1,5 @@
 import StartGameScreen from "@/screens/StartGameScreen";
-import {ImageBackground, StyleSheet} from "react-native";
+import {ImageBackground, SafeAreaView, StyleSheet} from "react-native";
 import {LinearGradient} from "expo-linear-gradient";
 import {useState} from "react";
 import GameScreen from "@/screens/GameScreen";
@@ -23,7 +23,9 @@ export default function Page() {
         <ImageBackground source={require("../assets/images/background.png")} resizeMode="cover"
                          style={styles.rootScreen}
                          imageStyle={styles.backgroundImage}>
-          {screen}
+          <SafeAreaView style={styles.rootScreen}>
+            {screen}
+          </SafeAreaView>
         </ImageBackground>
       </LinearGradient>
 
