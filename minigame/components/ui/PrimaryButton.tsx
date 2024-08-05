@@ -2,7 +2,7 @@ import React from 'react';
 import {Pressable, Text, View, StyleSheet} from "react-native";
 import Colors from "@/constants/colors";
 
-const PrimaryButton = ({children, onPress}: { children: string, onPress?: () => void }) => {
+const PrimaryButton = ({children, onPress}: { children: React.ReactNode, onPress?: () => void }) => {
 
   return (
     <View style={styles.buttonOuterContainer}>
