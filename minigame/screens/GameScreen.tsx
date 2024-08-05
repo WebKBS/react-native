@@ -3,6 +3,8 @@ import {Text, View, StyleSheet, Alert} from "react-native";
 import Title from "@/components/ui/Title";
 import NumberContainer from "@/components/game/NumberContainer";
 import PrimaryButton from "@/components/ui/PrimaryButton";
+import Card from "@/components/ui/Card";
+import InstructionText from "@/components/ui/InstructionText";
 
 
 const generateRandomBetween = (min: number, max: number, exclude: number): number => {
@@ -52,20 +54,22 @@ const GameScreen = ({userNumber, onGameOver}: { userNumber: number, onGameOver: 
       <NumberContainer>
         {currentGuess.toString()}
       </NumberContainer>
-      <View>
-        <Text>
-          Higher or Lower?
-        </Text>
+      <Card>
         <View>
-          <PrimaryButton onPress={nextGuessHandler.bind(this, "lower")}>-</PrimaryButton>
-          <PrimaryButton onPress={nextGuessHandler.bind(this, "higher")}>+</PrimaryButton>
+          <InstructionText>
+            Higher or Lower?
+          </InstructionText>
+          <View>
+            <PrimaryButton onPress={nextGuessHandler.bind(this, "lower")}>-</PrimaryButton>
+            <PrimaryButton onPress={nextGuessHandler.bind(this, "higher")}>+</PrimaryButton>
+          </View>
         </View>
-      </View>
-      <View>
-        <Text>
-          LOG ROUNDS
-        </Text>
-      </View>
+        <View>
+          <Text>
+            LOG ROUNDS
+          </Text>
+        </View>
+      </Card>
     </View>
   );
 };
