@@ -13,6 +13,7 @@ export default Title;
 
 const styles = StyleSheet.create({
   title: {
+    fontFamily: "OpenSans-Bold",
     fontSize: 18,
     fontWeight: "bold",
     color: "white",

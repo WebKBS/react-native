@@ -5,10 +5,24 @@ import {useState} from "react";
 import GameScreen from "@/screens/GameScreen";
 import Colors from "@/constants/colors";
 import GameOverScreen from "@/screens/GameOverScreen";
+import {useFonts} from "expo-font";
+import AppLoading from "expo-app-loading/build/AppLoadingNativeWrapper";
+
 
 export default function Page() {
   const [userNumber, setUserNumber] = useState<number | null>(null);
   const [gameIsOver, setGameIsOver] = useState(true);
+
+  const [fontsLoaded] = useFonts({
+    "OpenSans-Regular": require("../assets/fonts/OpenSans-Regular.ttf"),
+    "OpenSans-Bold": require("../assets/fonts/OpenSans-Bold.ttf"),
+  });
+
+  if (!fontsLoaded) {
+    // fonts가 로드되지 않을 때 AppLoading을 띄워준다.
+    return <AppLoading/>
+  }
+
 
   const pickedNumberHandler = (pickedNumber: number) => {
     setUserNumber(pickedNumber);
