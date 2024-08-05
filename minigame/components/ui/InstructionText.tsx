@@ -2,9 +2,9 @@ import React from 'react';
 import {StyleSheet, Text} from "react-native";
 import Colors from "@/constants/colors";
 
-const InstructionText = ({children}: { children: string }) => {
+const InstructionText = ({children, style}: { children: string, style?: object }) => {
   return (
-    <Text style={styles.instructionText}>
+    <Text style={[styles.instructionText, style]}>
       {children}
     </Text>
   );
