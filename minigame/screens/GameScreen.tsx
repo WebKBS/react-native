@@ -22,14 +22,14 @@ const generateRandomBetween = (min: number, max: number, exclude: number): numbe
 let minBoundary = 1;
 let maxBoundary = 100;
 
-const GameScreen = ({userNumber, onGameOver}: { userNumber: number, onGameOver: () => void }) => {
+const GameScreen = ({userNumber, onGameOver}: { userNumber: number, onGameOver: (rounds: number) => void }) => {
   const initialGuess = generateRandomBetween(1, 100, userNumber);
   const [currentGuess, setCurrentGuess] = useState(initialGuess);
   const [guessRounds, setGuessRounds] = useState([initialGuess]);
 
   useEffect(() => {
     if (currentGuess === userNumber) {
-      onGameOver();
+      onGameOver(guessRounds.length);
     }
 
   }, [currentGuess, userNumber, onGameOver]);
@@ -87,7 +87,7 @@ const GameScreen = ({userNumber, onGameOver}: { userNumber: number, onGameOver: 
           </Text>
         </View>
       </Card>
-      <View>
+      <View style={styles.listContainer}>
         {/*{guessRounds.map((guess, index) => (*/}
         {/*  <Text key={index}>*/}
         {/*    {guess}*/}
@@ -119,5 +119,10 @@ const styles = StyleSheet.create({
 
   instructionText: {
     marginBottom: 12,
+  },
+
+  listContainer: {
+    flex: 1,
+    padding: 16
   }
 });
